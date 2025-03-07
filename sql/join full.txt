@@ -1,0 +1,165 @@
+Конечно! Давайте рассмотрим каждый тип соединения (join) в SQL на более подробных примерах.
+
+### 1. INNER JOIN
+
+**Пример:**
+У нас есть две таблицы: `Customers` и `Orders`.
+
+- **Customers**:
+  | CustomerID | CustomerName |
+  |------------|--------------|
+  | 1          | Alice        |
+  | 2          | Bob          |
+  | 3          | Charlie      |
+
+- **Orders**:
+  | OrderID | CustomerID | Product  |
+  |---------|------------|----------|
+  | 101     | 1          | Laptop   |
+  | 102     | 2          | Tablet   |
+  | 103     | 1          | Smartphone|
+
+**Запрос:**
+```sql
+SELECT Customers.CustomerName, Orders.Product
+FROM Customers
+INNER JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+```
+
+**Результат:**
+| CustomerName | Product    |
+|--------------|------------|
+| Alice        | Laptop     |
+| Alice        | Smartphone |
+| Bob          | Tablet     |
+
+### 2. LEFT JOIN (LEFT OUTER JOIN)
+
+**Пример:**
+То же самое, что и выше, но используем `LEFT JOIN`.
+
+**Запрос:**
+```sql
+SELECT Customers.CustomerName, Orders.Product
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+```
+
+**Результат:**
+| CustomerName | Product    |
+|--------------|------------|
+| Alice        | Laptop     |
+| Alice        | Smartphone |
+| Bob          | Tablet     |
+| Charlie      | NULL       |
+
+### 3. RIGHT JOIN (RIGHT OUTER JOIN)
+
+**Пример:**
+То же самое, что и выше, но используем `RIGHT JOIN`.
+
+**Запрос:**
+```sql
+SELECT Customers.CustomerName, Orders.Product
+FROM Customers
+RIGHT JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+```
+
+**Результат:**
+| CustomerName | Product    |
+|--------------|------------|
+| Alice        | Laptop     |
+| Alice        | Smartphone |
+| Bob          | Tablet     |
+
+### 4. FULL JOIN (FULL OUTER JOIN)
+
+**Пример:**
+То же самое, что и выше, но используем `FULL JOIN`.
+
+**Запрос:**
+```sql
+SELECT Customers.CustomerName, Orders.Product
+FROM Customers
+FULL JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+```
+
+**Результат:**
+| CustomerName | Product    |
+|--------------|------------|
+| Alice        | Laptop     |
+| Alice        | Smartphone |
+| Bob          | Tablet     |
+| Charlie      | NULL       |
+| NULL         | Tablet     |
+
+### 5. CROSS JOIN
+
+**Пример:**
+Создаем декартово произведение.
+
+**Запрос:**
+```sql
+SELECT Customers.CustomerName, Orders.Product
+FROM Customers
+CROSS JOIN Orders;
+```
+
+**Результат:**
+| CustomerName | Product    |
+|--------------|------------|
+| Alice        | Laptop     |
+| Alice        | Tablet     |
+| Alice        | Smartphone |
+| Bob          | Laptop     |
+| Bob          | Tablet     |
+| Bob          | Smartphone |
+| Charlie      | Laptop     |
+| Charlie      | Tablet     |
+| Charlie      | Smartphone |
+
+### 6. SELF JOIN
+
+**Пример:**
+У нас есть таблица `Employees`.
+
+- **Employees**:
+  | EmployeeID | Name    | ManagerID |
+  |------------|---------|-----------|
+  | 1          | Alice   | 2         |
+  | 2          | Bob     | NULL      |
+  | 3          | Charlie | 2         |
+
+**Запрос:**
+```sql
+SELECT e1.Name AS Employee, e2.Name AS Manager
+FROM Employees e1
+INNER JOIN Employees e2 ON e1.ManagerID = e2.EmployeeID;
+```
+
+**Результат:**
+| Employee | Manager |
+|----------|---------|
+| Alice    | Bob     |
+| Charlie  | Bob     |
+
+### 7. NATURAL JOIN
+
+**Пример:**
+Используем естественное соединение (natural join).
+
+**Запрос:**
+```sql
+SELECT *
+FROM Customers
+NATURAL JOIN Orders;
+```
+
+**Результат:**
+| CustomerID | CustomerName | OrderID | Product    |
+|------------|--------------|---------|------------|
+| 1          | Alice        | 101     | Laptop     |
+| 1          | Alice        | 103     | Smartphone |
+| 2          | Bob          | 102     | Tablet     |
+
+Эти примеры демонстрируют, как можно использовать различные типы соединений в SQL для работы с данными из нескольких таблиц. Если у вас есть ещё вопросы или нужны дополнительные примеры, дайте знать!
